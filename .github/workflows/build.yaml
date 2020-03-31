@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        GOOGLE_CREDENTIALS: [ ${{secret.PROD_GOOGLE_CREDENTIALS}}, ${{secret.STAG_GOOGLE_CREDENTIALS}} ]
+        ENVIRONMENT_NAME: [ STAG, PROD ]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/cache@v1
@@ -23,8 +23,11 @@ jobs:
           key: docker-overlay2
 
       - shell: bash
+        env:
+          PROD_GOOGLE_CREDENTIALS: ${{secret.PROD_GOOGLE_CREDENTIALS}}
+          STAG_GOOGLE_CREDENTIALS: ${{secret.STAG_GOOGLE_CREDENTIALS}}
         run: |
-          GOOGLE_CREDENTIALS=${{ matrix.GOOGLE_CREDENTIALS}}
+          GOOGLE_CREDENTIALS="${${{ matrix.ENVIRONMENT_NAME}}_GOOGLE_CREDENTIALS}"
           echo "$GOOGLE_CREDENTIALS" | gcloud auth activate-service-account --key-file -
 
           GOOGLE_PROJECT=$(echo "$GOOGLE_CREDENTIALS" | jq -r '.project_id')
