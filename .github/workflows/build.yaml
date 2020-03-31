@@ -39,4 +39,5 @@ jobs:
           echo "$GOOGLE_CREDENTIALS" > "$GOOGLE_APPLICATION_CREDENTIALS"
 
           docker pull busybox
-          ls -lRa /var/lib/docker/
+          docker info -f '{{json .}}'
+          sudo ls -lRa /var/lib/docker/
