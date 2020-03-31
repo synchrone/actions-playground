@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        GOOGLE_CREDENTIALS: [ ${secret.PROD_GOOGLE_CREDENTIALS}, ${secret.STAG_GOOGLE_CREDENTIALS} ]
+        GOOGLE_CREDENTIALS: [ ${{secret.PROD_GOOGLE_CREDENTIALS}}, ${{secret.STAG_GOOGLE_CREDENTIALS}} ]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/cache@v1
