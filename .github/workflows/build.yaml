@@ -24,8 +24,8 @@ jobs:
 
       - shell: bash
         env:
-          PROD_GOOGLE_CREDENTIALS: ${{secret.PROD_GOOGLE_CREDENTIALS}}
-          STAG_GOOGLE_CREDENTIALS: ${{secret.STAG_GOOGLE_CREDENTIALS}}
+          PROD_GOOGLE_CREDENTIALS: ${{secrets.PROD_GOOGLE_CREDENTIALS}}
+          STAG_GOOGLE_CREDENTIALS: ${{secrets.STAG_GOOGLE_CREDENTIALS}}
         run: |
           GOOGLE_CREDENTIALS="${${{ matrix.ENVIRONMENT_NAME}}_GOOGLE_CREDENTIALS}"
           echo "$GOOGLE_CREDENTIALS" | gcloud auth activate-service-account --key-file -
