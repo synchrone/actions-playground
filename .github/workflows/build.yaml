@@ -28,6 +28,8 @@ jobs:
           STAG_GOOGLE_CREDENTIALS: ${{secrets.STAG_GOOGLE_CREDENTIALS}}
         run: |
           GOOGLE_CREDENTIALS="${${{ matrix.ENVIRONMENT_NAME}}_GOOGLE_CREDENTIALS}"
+          echo cred lines: $(echo "$GOOGLE_CREDENTIALS" | wc -l)
+          
           echo "$GOOGLE_CREDENTIALS" | gcloud auth activate-service-account --key-file -
 
           GOOGLE_PROJECT=$(echo "$GOOGLE_CREDENTIALS" | jq -r '.project_id')
